@@ -9,7 +9,7 @@ import (
 
 
 
-type serviceHandler struct {	
+type ServiceHandler struct {	
 	repo repository.OpnameRepositoryInterface
 	connMySql *sql.DB
 }
@@ -17,7 +17,7 @@ type serviceHandler struct {
 
 func NewOpnameService(connMySql *sql.DB) OpnameServiceInterface {
 	opnameRepository := repository.NewOpnameRepository(connMySql)
-	return &serviceHandler{opnameRepository, connMySql}
+	return &ServiceHandler{opnameRepository, connMySql}
 }
 
 
@@ -28,7 +28,7 @@ type OpnameServiceInterface interface {
 }
 
 //I only want to state that service could access many repositories here
-func (s *serviceHandler) SummaryOpname() (interface{}, error) {
+func (s *ServiceHandler) SummaryOpname() (interface{}, error) {
 	var (
 		err					error
 		dataResult 			[]map[string]interface{}		
