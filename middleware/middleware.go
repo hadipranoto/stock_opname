@@ -20,8 +20,7 @@ func (m *GoMiddleware) ProductMiddleware(next echo.HandlerFunc) echo.HandlerFunc
 		response     HTTPResponseHelper		
 	)
 
-	return func(c echo.Context) error {
-		ReqProduct = ReqProductType{} 
+	return func(c echo.Context) error {		
 
 		if err = c.Bind(&ReqProduct); err != nil {
 			return response.SendBadRequest(c, err.Error(), nil)
@@ -42,7 +41,6 @@ func (m *GoMiddleware) InitialInventoryMiddleware(next echo.HandlerFunc) echo.Ha
 	)
 
 	return func(c echo.Context) error {
-		ReqReport = ReportPayloadType{} 
 
 		if err = c.Bind(&ReqReport); err != nil {
 			return response.SendBadRequest(c, err.Error(), nil)
@@ -51,6 +49,8 @@ func (m *GoMiddleware) InitialInventoryMiddleware(next echo.HandlerFunc) echo.Ha
 		if ReqReport.ProductCode == "" {
 			return response.SendBadRequest(c, "Product code is empty", nil)
 		}
+		
+		ReqReport.Kind = "kind_initial_inventory"		
 		
 		return next(c)
 	}
@@ -62,7 +62,6 @@ func (m *GoMiddleware) SaleMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	)
 
 	return func(c echo.Context) error {
-		ReqReport = ReportPayloadType{} 
 
 		if err = c.Bind(&ReqReport); err != nil {
 			return response.SendBadRequest(c, err.Error(), nil)
@@ -83,8 +82,7 @@ func (m *GoMiddleware) IncomingProductMiddleware(next echo.HandlerFunc) echo.Han
 		response     HTTPResponseHelper		
 	)
 
-	return func(c echo.Context) error {
-		ReqReport = ReportPayloadType{} 
+	return func(c echo.Context) error {		
 
 		if err = c.Bind(&ReqReport); err != nil {
 			return response.SendBadRequest(c, err.Error(), nil)
@@ -105,8 +103,7 @@ func (m *GoMiddleware) FinalInventoryMiddleware(next echo.HandlerFunc) echo.Hand
 		response     HTTPResponseHelper		
 	)
 
-	return func(c echo.Context) error {
-		ReqReport = ReportPayloadType{} 
+	return func(c echo.Context) error {		
 
 		if err = c.Bind(&ReqReport); err != nil {
 			return response.SendBadRequest(c, err.Error(), nil)
@@ -129,8 +126,7 @@ func (m *GoMiddleware) WarehouseInventoryMiddleware(next echo.HandlerFunc) echo.
 		response     HTTPResponseHelper		
 	)
 
-	return func(c echo.Context) error {
-		ReqReport = ReportPayloadType{} 
+	return func(c echo.Context) error {		
 
 		if err = c.Bind(&ReqReport); err != nil {
 			return response.SendBadRequest(c, err.Error(), nil)

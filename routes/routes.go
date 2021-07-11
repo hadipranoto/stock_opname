@@ -36,7 +36,7 @@ func RegisterRoutes (e *echo.Echo)  {
 
 
 	midle := midL.InitMiddleware()
-	
+
 	e.GET("/", handler.HelloRoot)
 
 	//showing summaries opname
@@ -46,11 +46,11 @@ func RegisterRoutes (e *echo.Echo)  {
 	e.POST("/product", handler.AddProduct, midle.ProductMiddleware)
 	
 	//api for inserting report data from different kind of documents
-	e.POST("/initial-inventory", handler.AddInventoryReport, midle.ProductMiddleware)
-	e.POST("/sale", handler.AddInventoryReport, midle.ProductMiddleware)
-	e.POST("/incoming-product", handler.AddInventoryReport, midle.ProductMiddleware)
-	e.POST("/final-inventory", handler.AddInventoryReport, midle.ProductMiddleware)
-	e.POST("/warehouse-inventory", handler.AddInventoryReport, midle.ProductMiddleware)
+	e.POST("/initial-inventory", handler.AddInventoryReport, midle.InitialInventoryMiddleware)
+	e.POST("/sale", handler.AddInventoryReport, midle.SaleMiddleware)
+	e.POST("/incoming-product", handler.AddInventoryReport, midle.IncomingProductMiddleware)
+	e.POST("/final-inventory", handler.AddInventoryReport, midle.FinalInventoryMiddleware)
+	e.POST("/warehouse-inventory", handler.AddInventoryReport, midle.WarehouseInventoryMiddleware)
 
 }
 
