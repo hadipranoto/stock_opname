@@ -17,9 +17,8 @@ type Handler struct {
 	services	services.OpnameServiceInterface
 }
 
-func (h *Handler) HelloRoot (c echo.Context) error {	
-	helper := midL.HTTPResponseHelper{}
-	return helper.SendSuccess(c, "OK", "Hello from the web side.")	
+func (h *Handler) HelloRoot (c echo.Context) error {		
+	return h.Response.SendSuccess(c, "OK", "Hello from the web side.")	
 }
 
 
@@ -27,9 +26,11 @@ func RegisterRoutes (e *echo.Echo)  {
 
 	//conn sql 
 	sqlConn, err := SqlConnect()
+	
 	if err != nil {
 		panic(fmt.Sprintf("Sql failed to load %v",err.Error()))
 	}
+
 	serv := services.NewOpnameService(sqlConn)	
 	handler := Handler{services:serv}
 
